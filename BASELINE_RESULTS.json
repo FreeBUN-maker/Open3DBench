@@ -1,0 +1,113 @@
+{
+  "evaluator_revision": "20261016",
+  "image_id": "sha256:08b99f163473381bc830d7a129ea59e7290151fa381861ef9c38dddde1996a49",
+  "image_tag": "gaocr/3dbench-contest:20260914",
+  "hbt_pitch_um": 6.4,
+  "hbt_landing_um": 0.8,
+  "hbt_resistance_ohm": 3.0,
+  "hbt_capacitance_ff": 0.6,
+  "timing_method": "Re-extraction and STA of existing routed databases; no rerouting",
+  "cases": [
+    {
+      "case": "ariane133",
+      "hbt_count": 4025,
+      "hbt_capacity_30_percent": 7300,
+      "drt_wirelength_um": 5678764.46,
+      "drc": 24691,
+      "tns_ns": -21178.4375,
+      "wns_ns": -4.57279682,
+      "timing_source": "Final packaged image fresh RCX/STA on ta3, 2026-09-15",
+      "drc_source": "Uncapped DRC replay of the existing routed checkpoint, 2026-10-15",
+      "routed_odb_sha256": "f2a74ab5111de6740961f85e7dd7e17de03a64a51d80dcad4639ef94ed558ce4"
+    },
+    {
+      "case": "ariane136",
+      "hbt_count": 4046,
+      "hbt_capacity_30_percent": 7300,
+      "drt_wirelength_um": 5667695.84,
+      "drc": 28601,
+      "tns_ns": -6130643.0,
+      "wns_ns": -381.76275635,
+      "timing_source": "Prior eight-case fresh RCX/STA with matching native fixes and helpers, 2026-09-14",
+      "drc_source": "Uncapped DRC replay of the existing routed checkpoint, 2026-10-15",
+      "routed_odb_sha256": "65a602b48236f4f83b96d33f50b58506d2c5340686d2978ba244e36b328990a8"
+    },
+    {
+      "case": "bp",
+      "hbt_count": 3847,
+      "hbt_capacity_30_percent": 5880,
+      "drt_wirelength_um": 7813311.28,
+      "drc": 50241,
+      "tns_ns": -186047.546875,
+      "wns_ns": -20.44161415,
+      "timing_source": "Prior eight-case fresh RCX/STA with matching native fixes and helpers, 2026-09-14",
+      "drc_source": "Uncapped DRC replay of the existing routed checkpoint, 2026-10-15",
+      "routed_odb_sha256": "1e7a2528c0664177ec57db08244be13476dcfce9dbc92a03d4b77722cc858c6c"
+    },
+    {
+      "case": "bp_fe",
+      "hbt_count": 1149,
+      "hbt_capacity_30_percent": 1729,
+      "drt_wirelength_um": 1378685.12,
+      "drc": 4257,
+      "tns_ns": -8828.73925781,
+      "wns_ns": -4.00943756,
+      "timing_source": "Final packaged image fresh RCX/STA on ta3, 2026-09-15",
+      "drc_source": "Uncapped DRC replay of the existing routed checkpoint, 2026-10-15",
+      "routed_odb_sha256": "d9995bc34eaca768a6bacc6a02a3ffded6c200f1dde75886de69d91a38f12abd"
+    },
+    {
+      "case": "bp_be",
+      "hbt_count": 1105,
+      "hbt_capacity_30_percent": 2176,
+      "drt_wirelength_um": 2368525.41,
+      "drc": 8099,
+      "tns_ns": -6886.90576172,
+      "wns_ns": -4.32407618,
+      "timing_source": "Final packaged image fresh RCX/STA on ta3, 2026-09-15",
+      "drc_source": "Uncapped DRC replay of the existing routed checkpoint, 2026-10-15",
+      "routed_odb_sha256": "edc1fd5a4eee66497839e6c8d923451e806d9640f6c27a9545dd19938dafc236"
+    },
+    {
+      "case": "bp_multi",
+      "hbt_count": 3072,
+      "hbt_capacity_30_percent": 4687,
+      "drt_wirelength_um": 3883744.71,
+      "drc": 15179,
+      "tns_ns": -90280.859375,
+      "wns_ns": -15.93246841,
+      "timing_source": "Prior eight-case fresh RCX/STA with matching native fixes and helpers, 2026-09-14",
+      "drc_source": "Uncapped DRC replay of the existing routed checkpoint, 2026-10-15",
+      "routed_odb_sha256": "2919b3a23f85e053394e7977d8c3fa84cc4253624998637d99920d1ad72f2f1e"
+    },
+    {
+      "case": "swerv_wrapper",
+      "hbt_count": 1278,
+      "hbt_capacity_30_percent": 4087,
+      "drt_wirelength_um": 3723936.61,
+      "drc": 30665,
+      "tns_ns": -1873.56188965,
+      "wns_ns": -1.55317116,
+      "timing_source": "Prior eight-case fresh RCX/STA with matching native fixes and helpers, 2026-09-14",
+      "drc_source": "Uncapped DRC replay of the existing routed checkpoint, 2026-10-15",
+      "routed_odb_sha256": "4b9c813d50a03fe73768a848a16aca34b50ffcd78e8b9f41d8d728a23fae9f87"
+    },
+    {
+      "case": "bp_quad",
+      "hbt_count": 27835,
+      "hbt_capacity_30_percent": 45630,
+      "drt_wirelength_um": 41694313.23,
+      "drc": 133765,
+      "tns_ns": -1716879.5,
+      "wns_ns": -113.96867371,
+      "timing_source": "Final packaged image fresh RCX/STA on ta3, 2026-09-15",
+      "drc_source": "Uncapped DRC replay of the existing routed checkpoint, 2026-10-15",
+      "routed_odb_sha256": "df47b915aaf662038bae8185fc8929a6e353d4f9e8faa1fd51fab479cbad50d3"
+    }
+  ],
+  "known_partial_annotation": {},
+  "bundle_date": "2026-10-16",
+  "routing_reproduction_claim": false,
+  "drc_method": "All final merged-design markers; no per-type report limit",
+  "rc_extraction_model_changed": false
+}

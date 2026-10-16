@@ -92,14 +92,16 @@ Existing HBT instances keep names beginning with `HBT_`. New HBT instances intro
 
 ## 4. Input and Output Files
 
-Download the [release bundle from Google Drive](https://drive.google.com/file/d/1BvkJXGITgEXt2EHV_bVx3Fz9HOedyWXk/view?usp=sharing),
-which includes the inputs, baseline source, and Docker image. After extracting
-`Open3DBench-offline-20260915.tar.gz`, the input archive is located at:
+Download the unchanged public inputs from the
+[input bundle on Google Drive](https://drive.google.com/file/d/1BvkJXGITgEXt2EHV_bVx3Fz9HOedyWXk/view?usp=sharing).
+Inside the extracted bundle, the input archive is under
+`Open3DBench/input/`:
 
 ```text
-Open3DBench-offline-20260915/Open3DBench/input/open3dbench_8cases_post_hbt_input_20260724.tar.gz
+Open3DBench/input/open3dbench_8cases_post_hbt_input_20260724.tar.gz
 ```
 
+Use the current Docker image pulled in Section 2 for evaluation.
 The inputs use a 6.4 um HBT pitch, a 3.0 ohm HBT series resistance, and
 0.6 fF total HBT capacitance.
 
@@ -156,7 +158,12 @@ Before DRT, the evaluator regenerates a canonical DEF and routing guide from `5_
 
 - HBT legality;
 
-- legality of global-routing guides (do not cross die).
+- legality of global-routing guides (do not cross die), including guide coverage
+  for every non-supply net with two or more terminals.
+
+After detailed routing, all required nets must have physically connected routing
+before timing metrics are accepted. A failed evaluation does not produce valid
+scores.
 
 ## 5. Baseline Results
 
@@ -165,14 +172,17 @@ The table reports the existing eight-case baseline routes, produced with the
 (`droute_end_iter=2`). TNS and WNS are setup timing metrics re-evaluated from
 these routed databases using the supplied evaluator and timing constraints.
 All cases use a 6.4 um HBT pitch, 3.0 ohm resistance, and 0.6 fF total capacitance.
+DRC counts include all reported violations on the merged two-die design, without
+a per-type reporting limit. The table uses the 2026-10-16 evaluator revision;
+the RC extraction model, TNS, WNS, and routed wirelength are unchanged.
 
 | Case | HBTs / 30% Capacity | DRT-WL (um) | DRC | TNS (ns) | WNS (ns) |
 |---|---:|---:|---:|---:|---:|
-| `ariane133` | 4,025 / 7,300 | 5,678,764.46 | 15,276 | -21,178.44 | -4.57280 |
-| `ariane136` | 4,046 / 7,300 | 5,667,695.84 | 15,964 | -6,130,643.00 | -381.76276 |
-| `black_parrot` (`bp`) | 3,847 / 5,880 | 7,813,311.28 | 18,874 | -186,047.55 | -20.44161 |
+| `ariane133` | 4,025 / 7,300 | 5,678,764.46 | 24,691 | -21,178.44 | -4.57280 |
+| `ariane136` | 4,046 / 7,300 | 5,667,695.84 | 28,601 | -6,130,643.00 | -381.76276 |
+| `black_parrot` (`bp`) | 3,847 / 5,880 | 7,813,311.28 | 50,241 | -186,047.55 | -20.44161 |
 | `bp_fe` | 1,149 / 1,729 | 1,378,685.12 | 4,257 | -8,828.74 | -4.00944 |
 | `bp_be` | 1,105 / 2,176 | 2,368,525.41 | 8,099 | -6,886.91 | -4.32408 |
-| `bp_multi` | 3,072 / 4,687 | 3,883,744.71 | 13,778 | -90,280.86 | -15.93247 |
-| `swerv_wrapper` | 1,278 / 4,087 | 3,723,936.61 | 15,382 | -1,873.56 | -1.55317 |
-| `bp_quad` | 27,835 / 45,630 | 41,694,313.23 | 23,862 | -1,716,879.50 | -113.96867 |
+| `bp_multi` | 3,072 / 4,687 | 3,883,744.71 | 15,179 | -90,280.86 | -15.93247 |
+| `swerv_wrapper` | 1,278 / 4,087 | 3,723,936.61 | 30,665 | -1,873.56 | -1.55317 |
+| `bp_quad` | 27,835 / 45,630 | 41,694,313.23 | 133,765 | -1,716,879.50 | -113.96867 |
