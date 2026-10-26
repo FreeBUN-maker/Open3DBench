@@ -88,7 +88,22 @@ The provided OpenROAD source adds a per-net routing-layer range to `GlobalRouter
 
 ### 3.3 HBT and subnet naming
 
-Existing HBT instances keep names beginning with `HBT_`. New HBT instances introduced by Metal Layer Sharing must be named `LS_HBT_<id>`, where `<id>` uniquely identifies each HBT. Subnets derived from an original net must be named `<original_net>__MLS__S<id>__BOT` or `<original_net>__MLS__S<id>__TOP`; `<original_net>` is the exact original net name, and `S<id>` uniquely identifies each subnet derived from it.
+Existing HBT instances keep names beginning with `HBT_`. New HBT instances introduced by Metal Layer Sharing must be named `LS_HBT_<id>`, where `<id>` uniquely identifies each HBT. Without an explicit mapping, subnets derived from an original net must be named `<original_net>__MLS__S<id>__BOT` or `<original_net>__MLS__S<id>__TOP`; `<original_net>` is the exact original net name, and `S<id>` uniquely identifies each subnet derived from it.
+
+Alternatively, place `mls_net_map.json` in the same directory as `5_1_grt.odb` to use custom MLS subnet names:
+
+```json
+{
+  "schema_version": 1,
+  "nets": {
+    "original_net": ["source_segment", "borrowed_segment", "sink_segment"]
+  }
+}
+```
+
+Each key must exactly match an original 2D net in the input, and its list must include all derived subnets using their exact ODB names; one subnet may retain the original net name. The evaluator reads this file automatically when running the same `contest evaluate` command, with no additional argument. Mapped families may use arbitrary subnet names; unmapped families retain the naming convention above. The mapping must agree with the actual ODB connectivity and does not relax placement, HBT legality, or die-local guide checks. Incorrect, incomplete, or duplicate mappings are rejected.
+
+Original 3D nets require one HBT; an original 2D net using MLS requires exactly two HBTs forming one path to the other die and back.
 
 ## 4. Input and Output Files
 
@@ -149,6 +164,9 @@ The evaluator models each HBT as a 3.0-ohm series resistance with 0.6 fF total g
 | File | Information contained in the file |
 |---|---|
 | `5_1_grt.odb` | Final OpenDB database containing component placement, optimized HBT placement, net/subnet connectivity, and global-routing guides. |
+| `mls_net_map.json` (optional) | Original 2D net to MLS subnet mapping, required for MLS families that use custom subnet names; see Section 3.3. |
+
+Submissions containing detailed routing (`dbWire` or `dbSWire`, including pre-routed fixed vias) are rejected before DRT; HBTs must remain as instances for the evaluator to convert after detailed routing.
 
 Before DRT, the evaluator regenerates a canonical DEF and routing guide from `5_1_grt.odb`. It then checks:
 
