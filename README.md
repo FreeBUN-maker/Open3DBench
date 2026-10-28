@@ -125,6 +125,14 @@ If you use the pre-generated LoL artifacts already included in this repository, 
 
 For concrete commands, benchmark variants, supported placers, and evaluation scripts, please refer to [Place-LoL](/home/xiaosi/hdd/shiyq/Open3DBench-release/Place-LoL/README.md) and [OpenROAD-3D](/home/xiaosi/hdd/shiyq/Open3DBench-release/OpenROAD-3D/README.md).
 
+## Contest Routing Optimization
+
+The [opt-code tools](opt-code/README.md) provide the migrated contest GRT baseline,
+the `timing1c` timing-driven metal-layer-sharing algorithm, and Docker wrappers
+for building, running, and evaluating them. Algorithms are organized by name;
+inputs and generated artifacts use this repository's `input/`, `.contest/`,
+`output/`, and `reports/` directories by default.
+
 ## Acknowledgments
 
 In the new release, we sincerely thank the following people, listed in alphabetical order, for generously sharing winning contest binaries for our evaluation. Many of them also provided highly specific help and invested substantial time and effort in supporting this work.
