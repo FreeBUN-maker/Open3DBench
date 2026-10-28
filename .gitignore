@@ -9,3 +9,4 @@ reports/
 __pycache__/
 *.pyc
 open3dbench_*input*.tar.gz
+*.tar
