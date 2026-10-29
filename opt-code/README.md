@@ -1,5 +1,10 @@
 # 竞赛布线优化与辅助脚本
 
+新增的自动 MLS 初版位于 [`mls_v1/`](mls_v1/README.md)：支持候选筛选、
+两 HBT 选址、分支子网切分及现有 FastRoute 流程；另附
+[优化空间](mls_v1/OPTIMIZATION.md)、[论文与开源参考](mls_v1/REFERENCES.md)
+和[实际验证范围](mls_v1/VALIDATION.md)。下面保留原迁入工具的使用说明。
+
 从 `3DIC-routing` 迁入的竞赛 GRT 工具。原目录名是 `algorithms/`，
 其中的优化算法只有 `timing1c`。算法实现及其运行入口集中在同名目录；
 通用编译、baseline 运行和评估入口位于 `scripts/`。
