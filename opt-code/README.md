@@ -1,5 +1,8 @@
 # 竞赛布线优化与辅助脚本
 
+[`mls_v2/`](mls_v2/README.md) 实现真实逐层 GRT 反馈、终点 TNS 筛选、两 HBT 区域
+选址及候选完整 GRT/STA 验证与回滚。运行及独立实验开关见该目录说明。
+
 新增的自动 MLS 初版位于 [`mls_v1/`](mls_v1/README.md)：支持候选筛选、
 两 HBT 选址、分支子网切分及现有 FastRoute 流程；另附
 [优化空间](mls_v1/OPTIMIZATION.md)、[论文与开源参考](mls_v1/REFERENCES.md)

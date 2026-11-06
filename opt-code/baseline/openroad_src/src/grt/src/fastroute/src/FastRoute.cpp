@@ -1285,6 +1285,56 @@ void FastRouteCore::getBlockage(odb::dbTechLayer* layer,
   }
 }
 
+void FastRouteCore::writeResources(const char* file_name,
+                                  int min_layer,
+                                  int max_layer)
+{
+  // Export the router's edges directly: dbGCellGrid uses uint8 fields and
+  // combines usage with reductions. Here demand excludes reductions, and
+  // capacity is ALREADY reduced. This read-only operation cannot change routes.
+  if (h_edges_3D_.num_elements() == 0) {
+    logger_->error(GRT, 721, "Route before exporting FastRoute resources.");
+  }
+  std::ofstream out(file_name);
+  if (!out) {
+    logger_->error(GRT, 722, "Cannot open resource export {}.", file_name);
+  }
+  out << "# mls_resources_v2 capacity=available demand=wire_usage "
+         "blockage=all_capacity_reductions via_capacity=not_modeled\n";
+  out << "GRID\t" << x_corner_ << '\t' << y_corner_ << '\t'
+      << tile_size_ << '\t' << x_grid_ << '\t' << y_grid_ << '\n';
+  out << "# layer die direction gx gy capacity demand blockage overflow\n";
+  for (int k = min_layer - 1; k < max_layer; ++k) {
+    auto* layer = db_->getTech()->findRoutingLayer(k + 1);
+    if (layer == nullptr) {
+      continue;
+    }
+    for (int y = 0; y < y_grid_; ++y) {
+      for (int x = 0; x < x_grid_; ++x) {
+        for (int dir = 0; dir < 2; ++dir) {
+          if ((dir == 0 && x + 1 >= x_grid_)
+              || (dir == 1 && y + 1 >= y_grid_)) {
+            continue;
+          }
+          const auto& edge = dir == 0 ? h_edges_3D_[k][y][x]
+                                      : v_edges_3D_[k][y][x];
+          const int cap = edge.cap;
+          const int usage = edge.usage;
+          const int reduction = edge.red;
+          out << layer->getName() << '\t' << (k < 10 ? 0 : 1) << '\t'
+              << (dir == 0 ? 'H' : 'V') << '\t' << x << '\t' << y << '\t'
+              << cap << '\t' << usage << '\t' << reduction << '\t'
+              << std::max(0, usage - cap) << '\n';
+        }
+      }
+    }
+  }
+  out.flush();
+  if (!out) {
+    logger_->error(GRT, 723, "Failed writing resource export {}.", file_name);
+  }
+}
+
 void FastRouteCore::updateDbCongestion(int min_routing_layer,
                                        int max_routing_layer)
 {

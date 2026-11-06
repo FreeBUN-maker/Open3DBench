@@ -187,9 +187,15 @@ configure_die_routing_layers $bot_min $bot_max
 apply_layer_ranges $bottom_nets $bot_min $bot_max
 set bottom_added [add_nets_to_route_from_file $list_dir/bottom_2d.txt]
 puts "Pass1: queued $bottom_added bottom nets for GRT"
+set grt_feedback_route_started [clock milliseconds]
 global_route -guide_file $::env(RESULTS_DIR)/route_bottom.guide \
   -congestion_report_file $::env(REPORTS_DIR)/congestion_bottom.rpt \
   {*}$grt_args
+if {[info exists ::env(GRT_FEEDBACK_TCL)] && $::env(GRT_FEEDBACK_TCL) ne ""} {
+  set grt_feedback_die bottom
+  set grt_feedback_route_seconds [expr {([clock milliseconds]-$grt_feedback_route_started)/1000.0}]
+  source $::env(GRT_FEEDBACK_TCL)
+}
 
 # --- Pass 2: upper die (isolated subprocess, only upper metal visible) ---
 route_pass_subprocess $list_dir/upper_2d.txt \

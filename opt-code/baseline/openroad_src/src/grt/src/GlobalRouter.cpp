@@ -3016,6 +3016,16 @@ void GlobalRouter::addPinsConnectedToGuides(RoutePointToPinsMap& point_to_pins,
   }
 }
 
+void GlobalRouter::writeResources(const char* file_name)
+{
+  if (use_cugr_) {
+    logger_->error(GRT, 720, "Resource export requires FastRoute.");
+  }
+  int min_layer, max_layer;
+  getMinMaxLayer(min_layer, max_layer);
+  fastroute_->writeResources(file_name, min_layer, max_layer);
+}
+
 void GlobalRouter::writeSegments(const char* file_name)
 {
   std::ofstream segs_file;

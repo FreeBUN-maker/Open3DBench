@@ -29,6 +29,12 @@ set output_odb $::env(RESULTS_DIR)/5_1_grt.odb
 set success_marker $::env(RESULTS_DIR)/.grt_finalize_complete
 write_db $output_odb
 
+# Feedback may use a separate, electrically collapsed STA database. Run only
+# after saving the unmodified submission database, and before success is marked.
+if {[info exists ::env(GRT_FINAL_FEEDBACK_TCL)] && $::env(GRT_FINAL_FEEDBACK_TCL) ne ""} {
+  source $::env(GRT_FINAL_FEEDBACK_TCL)
+}
+
 # Publish completion only after the ODB has been fully written.  The parent
 # process uses this marker to distinguish a valid child result from a real
 # finalization failure.

@@ -173,6 +173,7 @@ class FastRouteCore
                    uint8_t& blockage_h,
                    uint8_t& blockage_v);
   void updateDbCongestion(int min_routing_layer, int max_routing_layer);
+  void writeResources(const char* file_name, int min_layer, int max_layer);
   void getCapacityReductionData(CapacityReductionData& cap_red_data);
   void findCongestedEdgesNets(NetsPerCongestedArea& nets_in_congested_edges,
                               bool vertical);

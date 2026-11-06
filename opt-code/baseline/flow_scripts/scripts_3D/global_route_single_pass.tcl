@@ -89,7 +89,13 @@ set congestion_report $::env(REPORTS_DIR)/congestion_upper.rpt
 set report_fp [open $congestion_report w]
 close $report_fp
 
+set grt_feedback_route_started [clock milliseconds]
 global_route -guide_file $::env(GRT_PASS_GUIDE_OUT) \
   -congestion_report_file $congestion_report \
   {*}$grt_args
 write_guides $::env(GRT_PASS_GUIDE_OUT)
+if {[info exists ::env(GRT_FEEDBACK_TCL)] && $::env(GRT_FEEDBACK_TCL) ne ""} {
+  set grt_feedback_die upper
+  set grt_feedback_route_seconds [expr {([clock milliseconds]-$grt_feedback_route_started)/1000.0}]
+  source $::env(GRT_FEEDBACK_TCL)
+}
